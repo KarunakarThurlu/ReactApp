@@ -11,7 +11,7 @@ export default defineConfig({
       remotes: {
         remoteApp: 'https://remoteapp-0dx9.onrender.com/assets/remoteEntry.js',
       },
-      shared: ['react', 'react-dom','highcharts-react-official'],
+      shared: ['react', 'react-dom', 'highcharts-react-official'],
     }),
   ],
   test: {
@@ -22,20 +22,21 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
     },
   },
-  build:{
-    target:'esnext'
-  },
-  server:{
-    proxy: {
-      '/assets/remoteEntry.js': {
-        target: 'https://remoteapp-0dx9.onrender.com',
-        changeOrigin: true,
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
-            proxyReq.setHeader('Origin', 'https://reactapp-m3tu.onrender.com');
-          });
+  build: {
+    target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'remoteEntry.js': ['remoteEntry.js'],
         },
       },
-  }
-}
+    },
+  },
+  server: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  },
 })
