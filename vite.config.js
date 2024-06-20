@@ -9,7 +9,7 @@ export default defineConfig({
     federation({
       name: 'hostApp',
       remotes: {
-        remoteApp: 'https://remoteapp-0dx9.onrender.com',
+        remoteApp: 'https://remoteapp-0dx9.onrender.com/assets/remoteEntry.js',
       },
       shared: ['react', 'react-dom','highcharts-react-official'],
     }),
@@ -25,4 +25,17 @@ export default defineConfig({
   build:{
     target:'esnext'
   },
+  server:{
+    proxy: {
+      '/assets/remoteEntry.js': {
+        target: 'https://remoteapp-0dx9.onrender.com',
+        changeOrigin: true,
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            proxyReq.setHeader('Origin', 'https://reactapp-m3tu.onrender.com');
+          });
+        },
+      },
+  }
+}
 })
