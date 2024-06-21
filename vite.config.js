@@ -24,13 +24,6 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'remoteEntry.js': ['remoteEntry.js'],
-        },
-      },
-    },
   },
   server: {
     headers: {
