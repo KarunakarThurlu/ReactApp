@@ -9,7 +9,7 @@ export default defineConfig({
     federation({
       name: 'hostApp',
       remotes: {
-        remoteApp: 'https://remoteapp-0dx9.onrender.com/assets/remoteEntry.js',
+        remoteApp: 'https://remoteapp-27tl.onrender.com/assets/remoteEntry.js',
       },
       shared: ['react', 'react-dom', 'highcharts-react-official'],
     }),
